@@ -1595,6 +1595,7 @@ if (Vel) {
   $(document).ready(function () {
     $('.collapsible').collapsible();
     $(".button-collapse").sideNav();
+    $('.modal').modal();
   });
 })(jQuery);;(function ($) {
 
