@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Tempo de geração: 19/09/2017 às 13:22
--- Versão do servidor: 10.1.26-MariaDB
--- Versão do PHP: 7.1.8
+-- Generation Time: Oct 24, 2017 at 01:49 PM
+-- Server version: 10.1.26-MariaDB
+-- PHP Version: 7.1.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,28 +19,81 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Banco de dados: `WoodenBlock`
+-- Database: `WoodenBlock`
 --
 
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `Knowledges`
+-- Table structure for table `Knowledges`
 --
 
 CREATE TABLE `Knowledges` (
-  `idKnowledgers` int(11) NOT NULL,
+  `idKnowledge` bigint(11) NOT NULL,
   `name` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `Users`
+-- Table structure for table `Task`
+--
+
+CREATE TABLE `Task` (
+  `idTask` bigint(20) NOT NULL,
+  `idOwner` bigint(20) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `description` text NOT NULL,
+  `image` varchar(255) NOT NULL,
+  `initialTime` date NOT NULL,
+  `endTime` date NOT NULL,
+  `comments` text NOT NULL,
+  `idTaskStatus` bigint(20) NOT NULL,
+  `idKnowledge` bigint(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `TaskInterstedUsers`
+--
+
+CREATE TABLE `TaskInterstedUsers` (
+  `idTaskInterstedUser` bigint(20) NOT NULL,
+  `idUser` bigint(20) NOT NULL,
+  `idTask` bigint(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `TaskStatus`
+--
+
+CREATE TABLE `TaskStatus` (
+  `idTaskStatus` bigint(20) NOT NULL,
+  `name` varchar(60) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `TaskStatus`
+--
+
+INSERT INTO `TaskStatus` (`idTaskStatus`, `name`) VALUES
+(1, 'Nova'),
+(2, 'Em Andamento'),
+(3, 'Pendente de Review'),
+(4, 'Pendente de Pagamento'),
+(5, 'Pronta');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Users`
 --
 
 CREATE TABLE `Users` (
-  `idUsers` bigint(20) NOT NULL,
+  `idUser` bigint(20) NOT NULL,
   `name` varchar(50) NOT NULL,
   `lastName` varchar(50) NOT NULL,
   `email` varchar(50) NOT NULL,
@@ -51,36 +104,93 @@ CREATE TABLE `Users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Índices de tabelas apagadas
+-- Indexes for dumped tables
 --
 
 --
--- Índices de tabela `Knowledges`
+-- Indexes for table `Knowledges`
 --
 ALTER TABLE `Knowledges`
-  ADD PRIMARY KEY (`idKnowledgers`);
+  ADD PRIMARY KEY (`idKnowledge`);
 
 --
--- Índices de tabela `Users`
+-- Indexes for table `Task`
+--
+ALTER TABLE `Task`
+  ADD PRIMARY KEY (`idTask`),
+  ADD KEY `idTaskStatus` (`idTaskStatus`),
+  ADD KEY `idOwner` (`idOwner`),
+  ADD KEY `idKnowledge` (`idKnowledge`);
+
+--
+-- Indexes for table `TaskInterstedUsers`
+--
+ALTER TABLE `TaskInterstedUsers`
+  ADD PRIMARY KEY (`idTaskInterstedUser`),
+  ADD KEY `idUser` (`idUser`),
+  ADD KEY `idTask` (`idTask`);
+
+--
+-- Indexes for table `TaskStatus`
+--
+ALTER TABLE `TaskStatus`
+  ADD PRIMARY KEY (`idTaskStatus`);
+
+--
+-- Indexes for table `Users`
 --
 ALTER TABLE `Users`
-  ADD PRIMARY KEY (`idUsers`),
+  ADD PRIMARY KEY (`idUser`),
   ADD UNIQUE KEY `email` (`email`);
 
 --
--- AUTO_INCREMENT de tabelas apagadas
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT de tabela `Knowledges`
+-- AUTO_INCREMENT for table `Knowledges`
 --
 ALTER TABLE `Knowledges`
-  MODIFY `idKnowledgers` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idKnowledge` bigint(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT de tabela `Users`
+-- AUTO_INCREMENT for table `Task`
+--
+ALTER TABLE `Task`
+  MODIFY `idTask` bigint(20) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `TaskInterstedUsers`
+--
+ALTER TABLE `TaskInterstedUsers`
+  MODIFY `idTaskInterstedUser` bigint(20) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `TaskStatus`
+--
+ALTER TABLE `TaskStatus`
+  MODIFY `idTaskStatus` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+--
+-- AUTO_INCREMENT for table `Users`
 --
 ALTER TABLE `Users`
-  MODIFY `idUsers` bigint(20) NOT NULL AUTO_INCREMENT;COMMIT;
+  MODIFY `idUser` bigint(20) NOT NULL AUTO_INCREMENT;
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `Task`
+--
+ALTER TABLE `Task`
+  ADD CONSTRAINT `Task_ibfk_1` FOREIGN KEY (`idOwner`) REFERENCES `Users` (`idUser`),
+  ADD CONSTRAINT `Task_ibfk_2` FOREIGN KEY (`idTaskStatus`) REFERENCES `TaskStatus` (`idTaskStatus`),
+  ADD CONSTRAINT `Task_ibfk_3` FOREIGN KEY (`idKnowledge`) REFERENCES `Knowledges` (`idKnowledge`);
+
+--
+-- Constraints for table `TaskInterstedUsers`
+--
+ALTER TABLE `TaskInterstedUsers`
+  ADD CONSTRAINT `TaskInterstedUsers_ibfk_1` FOREIGN KEY (`idUser`) REFERENCES `Users` (`idUser`),
+  ADD CONSTRAINT `TaskInterstedUsers_ibfk_2` FOREIGN KEY (`idTask`) REFERENCES `Task` (`idTask`);
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
