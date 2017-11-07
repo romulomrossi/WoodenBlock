@@ -54,3 +54,4 @@ $route['register'] = 'Users';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 $route['users'] = 'users';
+$route['users/profile'] = 'profile';
