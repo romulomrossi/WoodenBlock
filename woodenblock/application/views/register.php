@@ -4,16 +4,17 @@
 	<div class="row">
 		<h4 class="col offset-m2">Registre-se!</h4>	
 	</div>
+	<p><?php echo $this->session->flashdata('error'); ?></p>
 	<div class="row">
-	    <form class="col s12 col m8 offset-m2" method="post" action="#">
+	    <form class="col s12 col m8 offset-m2" method="post" action=<?=base_url('index.php/users/create')?>>
 	      <div class="row">
 	        <div class="input-field col s12 col m6">
-	          <input id="first_name" type="text" class="validate">
-	          <label for="first_name">Nome</label>
+	          <input name="firstName" type="text" class="validate">
+	          <label for="firstName">Nome</label>
 	        </div>
 	        <div class="input-field col s12 col m6">
-	          <input  id="last_name" type="text" class="validate">
-	          <label for="last_name">Sobrenome</label>
+	          <input  name="lastName" type="text" class="validate">
+	          <label for="lastName">Sobrenome</label>
 	        </div>
 	      </div>
 	      <div class="row">
@@ -28,13 +29,13 @@
 	      </div>      
 	      <div class="row">
 	        <div class="input-field col s12">
-	        	<textarea id="textarea1" class="materialize-textarea"></textarea>
-	            <label for="textarea1">Descreva suas realizações</label>
+	        	<textarea id="description" class="materialize-textarea"></textarea>
+	            <label for="description">Descreva suas realizações</label>
 	        </div> 
 	      </div>
 	      <div class="row">
 	      	<div class="input-field col s12">
-	      		<input id="cpf" type="text" class="validate">
+	      		<input id="documentNumber" type="text" class="validate">
 	      	 	<label for="cpf">CPF/CNPJ</label>
 	      	</div>	      	
 	      </div>
