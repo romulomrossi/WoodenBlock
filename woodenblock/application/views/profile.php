@@ -1,5 +1,4 @@
 <? $this->load->view('common/header'); ?>
-
 	<div class="row">
     <div class="col s12 col m3 offset-s2 offset-m1" >			
       		<img src="https://scontent.fpoa10-1.fna.fbcdn.net/v/t1.0-9/15107270_1017594778364069_4131013435164946840_n.jpg?oh=4a306a52c601c4c16b238456c77a46c9&oe=5A5714BC" alt="" class="circle" width="200px">

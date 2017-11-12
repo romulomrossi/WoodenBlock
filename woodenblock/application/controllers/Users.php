@@ -6,7 +6,38 @@ class Users extends CI_Controller
 
     public function index()
     {
+        $this->load->view('login');
+    }
+
+    public function Register()
+    {
         $this->load->view('register');
+    }
+
+    public function Login()
+    {
+        $input = $this->input->post();
+        $query = $this->UsersModel->GetByEmail($input['email']);
+        
+        if($query == null)
+        {
+            $this->session->set_flashdata('error', 'O email digitado não existe.');
+            $this->load->view('login');
+        }
+        else
+        {
+            if($query['password'] != $input['password'])
+            {
+                $this->session->set_flashdata('error', 'Senha incorreta, tente novamente.');
+                $this->load->view('login');
+            }
+            else
+            {
+                $this->session->IdLoggedUser = $query['idUser'];
+                redirect('users/profile');
+            }
+        }
+
     }
 
     public function Create()
@@ -17,10 +48,13 @@ class Users extends CI_Controller
         {
             $user = $this->input->post();
             $status = $this->UsersModel->Insert($user);
-            if(!$status){
+            if(!$status)
+            {
 				$this->session->set_flashdata('error', 'Não foi possível inserir o contato.');
                 $this->load->view('register');                        
-            }else{
+            }
+            else
+            {
 				$this->session->set_flashdata('success', 'Contato inserido com sucesso.');
 				// Redireciona o usuário para a home
 				redirect();

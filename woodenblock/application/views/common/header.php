@@ -18,9 +18,9 @@
 
     <!-- Dropdown Structure -->
     <ul id="dropdown1" class="dropdown-content">
-        <li><a href="login.php">Entrar</a></li>
+        <li><a href="<?php echo base_url('index.php/users') ?>">Entrar</a></li>
         <li class="divider"></li>
-        <li><a href="register.php">Registrar</a></li>
+        <li><a href="<?php echo base_url('index.php/users/register') ?>">Registrar</a></li>
     </ul>
     <nav>
         <div class="nav-wrapper teal lighten-2">
