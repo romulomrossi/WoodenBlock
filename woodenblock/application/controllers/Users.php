@@ -11,17 +11,26 @@ class Users extends CI_Controller
 
     public function Create()
     {
+        $users = $this->UsersModel->GetAll();
         $validation = self::Validate();
         if($validation)
         {
             $user = $this->input->post();
-            $this->session->set_flashdata('error', 'Não tem erro porra');
-        }
+            $status = $this->UsersModel->Insert($user);
+            if(!$status){
+				$this->session->set_flashdata('error', 'Não foi possível inserir o contato.');
+                $this->load->view('register');                        
+            }else{
+				$this->session->set_flashdata('success', 'Contato inserido com sucesso.');
+				// Redireciona o usuário para a home
+				redirect();
+			}
+        }   
         else
         {
             $this->session->set_flashdata('error', validation_errors('<p>', '</p>'));
+            $this->load->view('register');        
         }
-        $this->load->view('register');        
     }
 
     private function Validate($operation = 'create')
@@ -29,10 +38,12 @@ class Users extends CI_Controller
         switch($operation)
         {
             case 'create':
-                $rules['firstName'] = array('trim', 'required', 'min_lenght[3]');
-                $rules['lastName'] = array('trim', 'required', 'min_lenght[3]');
-                $rules['email'] = array('trim', 'required', 'valid_email');
+                $rules['firstName'] = array('trim', 'required');
+                $rules['lastName'] = array('trim', 'required');
+                $rules['email'] = array('trim', 'required', 'valid_email', 'is_unique[Users.email]');
                 $rules['password'] = array('required');
+                $rules['documentNumber'] = array('required');
+
                 break;
             default:
                 $rules['password'] = array('required');
@@ -42,6 +53,8 @@ class Users extends CI_Controller
         $this->form_validation->set_rules('firstName', 'Nome', $rules['firstName']);
         $this->form_validation->set_rules('lastName', 'Sobrenome', $rules['lastName']);
         $this->form_validation->set_rules('email', 'Email', $rules['email']);
+        $this->form_validation->set_rules('password', 'Senha', $rules['password']);
+        $this->form_validation->set_rules('documentNumber', 'CPF', $rules['documentNumber']);
         // Executa a validação e retorna o status
         return $this->form_validation->run();
     }
