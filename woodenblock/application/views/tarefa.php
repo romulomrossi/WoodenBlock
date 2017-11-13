@@ -5,10 +5,15 @@
     <h4 class="col offset-m2">Nova tarefa!</h4> 
   </div>
   <div class="row">
-      <form class="col s12 col m8 offset-m2" method="post" action="#">
+      <div class="col m8 s12 offset-m2">
+        <?php if($this->session->flashdata('error')): ?>
+          <p><?php echo $this->session->flashdata('error'); ?></p>
+        <?php endif; ?>
+      </div>
+      <form class="col s12 col m8 offset-m2" method="post" action=<?=base_url('index.php/users/tarefa/create')?> >
         <div class="row">
           <div class="input-field col s12 col m12">
-            <input id="title" required="" type="text" class="validate" value="<?=set_value('title')?>">
+            <input name="title" required="" type="text" class="validate" value="<?=set_value('title')?>">
             <label for="title">Título</label>
           </div>
         </div>
@@ -19,39 +24,25 @@
                   <input type="file">
               </div>
               <div class="file-path-wrapper">
-                  <input class="file-path validate" value="<?=set_value('image')?>" placeholder="imagem tarefa" type="text">
+                  <input name="image" class="file-path validate" value="<?=set_value('image')?>" placeholder="imagem tarefa" type="text">
               </div>
           </div>
         </div>
         <div class="row">
           <div class="input-field col s12 col m12">
-            <textarea id="descricao" value="<?=set_value('description')?>" required class="materialize-textarea required validate"></textarea>
+            <textarea name="descricao" value="<?=set_value('descricao')?>" required class="materialize-textarea required validate"></textarea>
               <label for="descricao">Descrição da Tarefa</label>
           </div>
         </div>
         <div class="row">
           <div class="input-field col s12 col m6">
-            <input placeholder="outros" value="<?=set_value('area')?>" type="text" id="outro">
+            <input placeholder="WEB/DESIGN/JAVA" value="<?=set_value('area')?>" type="text" name="area">
             <label>Área</label>
-          </div>
-          <div class="col s12 col m6">
-              
-                <input name="group1" type="radio" id="1" />
-                  <label for="1">Design</label>
-            
-                  <input name="group1" type="radio" id="2" />
-                  <label for="2">Programação</label>
-                
-                  <input class="with-gap" name="group1" type="radio" id="3"  />
-                  <label for="3">WEB</label>
-
-                  <input class="with-gap" name="group1" type="radio" id="4"  />
-                  <label for="4">Outro</label>
           </div>
         </div>
         <div class="row">
           <div class="input-field col s12 col m6">
-            <input placeholder="R$ 1200,00" type="text" id="valor" value="<?=set_value('value')?>">
+            <input placeholder="R$ 1200,00" type="text" name="value" value="<?=set_value('value')?>">
             <label>Valor:</label>
           </div>
           <div class="col s12 col m6">
@@ -65,29 +56,30 @@
           </div>
         </div>
         <div class="row">
+        <div><label for="prazo">Disponível até:</label></div>
           <div class="input-field col s12 col m12">
-            <input id="prazo" type="date" required class="validate" value="<?=set_value('date')?>">
+            <input name="prazo" type="date" required class="validate" value="<?=set_value('prazo')?>">
           </div>
         </div>
         <div class="row">
           <div class="input-field col s12 col m12">
-            <textarea id="observacao" class="materialize-textarea"></textarea>
+            <textarea name="observacao" class="materialize-textarea"></textarea>
               <label for="observacao">Observações:</label>
           </div>
         </div>
         <div class="row">
         <label>Status:</label>
           <div class="col s12 col m12">
-                <input name="group1" type="radio" id="s1" />
+                <input name="status" type="radio" id="s1" value="5" />
                   <label for="s1">Finalizada</label>
             
-                  <input name="group1" type="radio" id="s2" />
+                  <input name="status" type="radio" id="s2" value="2" />
                   <label for="s2">Em andamento</label>
                 
-                  <input class="with-gap" name="group1" type="radio" id="s3"  />
+                  <input class="with-gap" name="status" type="radio" id="s3" value="1" />
                   <label for="s3">Aguardando Desenvolvedor</label>
 
-                  <input class="with-gap" name="group1" type="radio" id="s4"  />
+                  <input class="with-gap" name="status" type="radio" id="s4" value="4" />
                   <label for="s4">Aguardando Pagamento</label>
           </div>
         </div>
@@ -100,12 +92,8 @@
             </div>
 
             <div class="col s12 col m4">
-              <button class="btn waves-effect waves-light col offset-s4"  name="action">Editar
-              </button>
-            </div>
-
-             <div class="col s12 col m4">
-              <button class="btn waves-effect waves-light col offset-s4"  name="action">Salvar
+              <button class="btn waves-effect waves-light col offset-s4"  name="action">
+              Cancelar
               </button>
             </div>
         </div>              
