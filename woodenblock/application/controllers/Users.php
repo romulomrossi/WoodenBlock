@@ -34,10 +34,24 @@ class Users extends CI_Controller
             else
             {
                 $this->session->IdLoggedUser = $query['idUser'];
+                $session_data = array(
+                    'name' => $query['firstName'],
+                    'lastname' => $query['lastName'],
+                    'email' => $query['email'],
+                    'id' => $query['idUser']
+                );
+                $this->session->set_userdata($session_data);
+                //echo $this->session->userdata('name');
                 redirect('users/profile');
             }
         }
 
+    }
+
+    public function Logout()
+    {
+        $this->session->sess_destroy();
+        redirect('users');
     }
 
     public function Create()

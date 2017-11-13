@@ -15,8 +15,16 @@
 </head>
 
 <body>
-
     <!-- Dropdown Structure -->
+    <?php
+    if($this->session->userdata('name') == null){
+        $teste = 0;
+    }
+    else{
+        $teste = 1;
+    }
+    ?>
+
     <ul id="dropdown1" class="dropdown-content">
         <li><a href="<?php echo base_url('index.php/users') ?>">Entrar</a></li>
         <li class="divider"></li>
@@ -27,11 +35,24 @@
             <a href="#!" class="brand-logo">WOODENBLOCKS</a>
             <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
             <ul class="right hide-on-med-and-down">
-                <li><a href="home.php">HOME</a></li>
-                <li><a href="profile.php">PERFIL</a></li>
-                <li><a href="tarefas.php">TAREFAS</a></li>
-                <!-- Dropdown Trigger -->
+
+                <?php
+                    if($teste){
+                    echo "<li><a href='home'>HOME</a></li>";
+                    echo "<li><a href='profile'>PERFIL</a></li>";
+                    echo "<li><a href='tarefa'>TAREFAS</a></li>";
+                
+                    }
+                    if(!$teste){
+                ?>
                 <li><a class="dropdown-button" href="#!" data-activates="dropdown1">ENTRAR<i class="material-icons right">arrow_drop_down</i></a></li>
+                <?php
+                    }
+                    else{
+                        echo "<li><a href='logout'>LOGOUT</a></li>";
+                    }
+                ?>
+
             </ul>
             <ul class="side-nav teal lighten-4" id="mobile-demo">
                 <li><a href="home.php">HOME</a></li>

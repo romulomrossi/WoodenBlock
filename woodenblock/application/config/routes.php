@@ -57,4 +57,5 @@ $route['users/login'] = 'Users/Login';
 $route['users/create'] = 'Users/Create';
 $route['users/profile'] = 'profile';
 $route['users/tarefa'] = 'tarefa';
+$route['users/logout'] = 'Users/Logout';
 $route['users/tarefa/create'] = 'Tarefa/Create';
