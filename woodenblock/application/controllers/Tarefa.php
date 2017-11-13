@@ -31,7 +31,9 @@ class Tarefa extends CI_Controller {
         if($validation)
         {
             $tarefa = $this->input->post();
-            $status = $this->TarefaModel->Insert($tarefa);
+            $idOwner = $this->TarefaModel->GetId();
+            $id = $idOwner['idUser'];
+            $status = $this->TarefaModel->Insert($id,$tarefa);
             if(!$status)
             {
                 $this->session->set_flashdata('error', 'Não foi possível inserir a tarefa.');
@@ -50,30 +52,19 @@ class Tarefa extends CI_Controller {
         }
     }
     private function Validate($operation = 'create')
-        {
+    {       
             switch($operation)
             {
                 case 'create':
-                    $rules['title'] = array('trim', 'required');
-                    $rules['descricao'] = array('trim', 'required');
-                    $rules['status'] = array('trim', 'required');
-                    $rules['image'] = array('trim', 'required');
-                    $rules['area'] = array('trim', 'required');
-                    $rules['value'] = array('trim', 'required');
-                    $rules['observacao'] = array('trim', 'required');
-                    $rules['prazo'] = array('trim', 'required');
+                    $rules['name'] = array('trim', 'required');
+                    $rules['description'] = array('trim', 'required');
+                    $rules['comments'] = array('trim', 'required');
                     break;
- 
             }
 
-            $this->form_validation->set_rules('name', 'Título', $rules['title']);
-            $this->form_validation->set_rules('descricao', 'Descrição', $rules['descricao']);
-            $this->form_validation->set_rules('prazo', 'Prazo', $rules['prazo']);
-            $this->form_validation->set_rules('status', 'Status', $rules['status']);
-            $this->form_validation->set_rules('value', 'Valor', $rules['value']);
-            $this->form_validation->set_rules('image', 'Imagem', $rules['image']);
-            $this->form_validation->set_rules('area', 'Área', $rules['area']);
-            $this->form_validation->set_rules('observacao', 'Observações', $rules['observacao']);
+            $this->form_validation->set_rules('name', 'Título', $rules['name']);
+            $this->form_validation->set_rules('description', 'Descrição', $rules['description']);
+            $this->form_validation->set_rules('comments', 'Observações', $rules['comments']);
             return $this->form_validation->run();
         }
 

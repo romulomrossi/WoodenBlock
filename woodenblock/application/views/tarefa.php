@@ -13,8 +13,8 @@
       <form class="col s12 col m8 offset-m2" method="post" action=<?=base_url('index.php/users/tarefa/create')?> >
         <div class="row">
           <div class="input-field col s12 col m12">
-            <input name="title" required="" type="text" class="validate" value="<?=set_value('title')?>">
-            <label for="title">Título</label>
+            <input name="name" required="" type="text" class="validate" value="<?=set_value('name')?>">
+            <label for="name">Título</label>
           </div>
         </div>
         <div class="row">
@@ -30,7 +30,7 @@
         </div>
         <div class="row">
           <div class="input-field col s12 col m12">
-            <textarea name="descricao" value="<?=set_value('descricao')?>" required class="materialize-textarea required validate"></textarea>
+            <textarea name="description" value="<?=set_value('description')?>" required class="materialize-textarea required validate"></textarea>
               <label for="descricao">Descrição da Tarefa</label>
           </div>
         </div>
@@ -56,43 +56,33 @@
           </div>
         </div>
         <div class="row">
+        <div><label for="prazo">Data publicação Tarefa:</label></div>
+          <div class="input-field col s12 col m12">
+            <input name="initialTime" type="date" required class="validate" value="<?=set_value('initialTime')?>">
+          </div>
+        </div>
+        <div class="row">
         <div><label for="prazo">Disponível até:</label></div>
           <div class="input-field col s12 col m12">
-            <input name="prazo" type="date" required class="validate" value="<?=set_value('prazo')?>">
+            <input name="endTime" type="date" required class="validate" value="<?=set_value('endTime')?>">
           </div>
         </div>
         <div class="row">
           <div class="input-field col s12 col m12">
-            <textarea name="observacao" class="materialize-textarea"></textarea>
-              <label for="observacao">Observações:</label>
-          </div>
-        </div>
-        <div class="row">
-        <label>Status:</label>
-          <div class="col s12 col m12">
-                <input name="status" type="radio" id="s1" value="5" />
-                  <label for="s1">Finalizada</label>
-            
-                  <input name="status" type="radio" id="s2" value="2" />
-                  <label for="s2">Em andamento</label>
-                
-                  <input class="with-gap" name="status" type="radio" id="s3" value="1" />
-                  <label for="s3">Aguardando Desenvolvedor</label>
-
-                  <input class="with-gap" name="status" type="radio" id="s4" value="4" />
-                  <label for="s4">Aguardando Pagamento</label>
+            <textarea name="comments" class="materialize-textarea" value="<?=set_value('comments')?>"></textarea>
+              <label for="comments">Observações:</label>
           </div>
         </div>
         
         <div class="row">
             <div class="col s12 col m4">
-              <button class="btn waves-effect waves-light col offset-s4" type="submit" name="action">Publicar
+              <button class="btn waves-effect waves-light col offset-s4" type="submit" >Publicar
               <i class="material-icons right">send</i>
               </button>
             </div>
 
             <div class="col s12 col m4">
-              <button class="btn waves-effect waves-light col offset-s4"  name="action">
+              <button class="btn waves-effect waves-light col offset-s4">
               Cancelar
               </button>
             </div>

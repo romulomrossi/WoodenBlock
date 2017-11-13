@@ -9,14 +9,26 @@ class TarefaModel extends CI_Model {
         $this->table = 'Task';
     }
 
-    function Insert($data) 
+    function Insert($idOwer,$data) 
     {
         if(!isset($data))
             return false;
-        return $this->db->insert($this->table, $data);
+        else{
+            $data1 = array('idOwner'=> $idOwer);
+            $this->db->set($data1);
+            return $this->db->insert($this->table, $data);
+        }
     }
 
-    
+    function GetId(){
+        $tb = 'Users';
+        $query = $this->db->get($tb);
+
+        if ($query->num_rows() > 0) 
+            return $query->row_array();
+        else
+            return null;
+    }
 
     function GetAll($sort = 'idTask', $order = 'asc') {
         $this->db->order_by($sort, $order);
