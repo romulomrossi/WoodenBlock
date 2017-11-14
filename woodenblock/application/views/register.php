@@ -8,7 +8,8 @@
 	<div class="row">
 		<div class="col m8 s12 offset-m2">
 			<?php if($this->session->flashdata('error')): ?>
-				<p><?php echo $this->session->flashdata('error'); ?></p>
+				<p><?php echo $this->session->flashdata('error');
+				?></p>
 			<?php endif; ?>
 		</div>
 			<form class="col s12 col m8 offset-m2" method="post" action=<?=base_url('index.php/users/create')?>>

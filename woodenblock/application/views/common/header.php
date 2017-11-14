@@ -49,7 +49,7 @@
                 <?php
                     }
                     else{
-                        echo "<li><a href='logout'>LOGOUT</a></li>";
+                        echo "<li><a href='".base_url('index.php/users/logout')."'>LOGOUT</a></li>";
                     }
                 ?>
 
