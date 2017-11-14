@@ -7,11 +7,11 @@
   <div class="row">
       <div class="col m8 s12 offset-m2">
         <?php if($this->session->flashdata('error')): ?>
-          <p><?php echo $this->session->flashdata('error'); ?></p>
         <?php endif; ?>
       </div>
       <form class="col s12 col m8 offset-m2" method="post" action=<?=base_url('index.php/users/tarefa/create')?> >
         <div class="row">
+          <input type="hidden" name="idOwner" value="<?php echo $this->session->userdata('id');?>">
           <div class="input-field col s12 col m12">
             <input name="name" required="" type="text" class="validate" value="<?=set_value('name')?>">
             <label for="name">Título</label>
@@ -56,9 +56,9 @@
           </div>
         </div>
         <div class="row">
-        <div><label for="prazo">Data publicação Tarefa:</label></div>
           <div class="input-field col s12 col m12">
-            <input name="initialTime" type="date" required class="validate" value="<?=set_value('initialTime')?>">
+            <?php $data_atual = date('Y-m-d'); ?>
+            <input name="initialTime" type="hidden" required class="validate" value="<?$data_atual?>">
           </div>
         </div>
         <div class="row">

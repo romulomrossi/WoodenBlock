@@ -26,14 +26,13 @@ class Tarefa extends CI_Controller {
 
     public function Create()
     {
-        $tarefa = $this->TarefaModel->GetAll();
+        //$tarefa = $this->TarefaModel->GetAll();
         $validation = self::Validate();
         if($validation)
         {
             $tarefa = $this->input->post();
-            $idOwner = $this->TarefaModel->GetId();
-            $id = $idOwner['idUser'];
-            $status = $this->TarefaModel->Insert($id,$tarefa);
+
+            $status = $this->TarefaModel->Insert($tarefa);
             if(!$status)
             {
                 $this->session->set_flashdata('error', 'Não foi possível inserir a tarefa.');
@@ -51,6 +50,8 @@ class Tarefa extends CI_Controller {
             $this->load->view('tarefa');        
         }
     }
+    
+
     private function Validate($operation = 'create')
     {       
             switch($operation)
@@ -65,6 +66,7 @@ class Tarefa extends CI_Controller {
             $this->form_validation->set_rules('name', 'Título', $rules['name']);
             $this->form_validation->set_rules('description', 'Descrição', $rules['description']);
             $this->form_validation->set_rules('comments', 'Observações', $rules['comments']);
+            
             return $this->form_validation->run();
         }
 
