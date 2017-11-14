@@ -49,8 +49,19 @@ class Tarefa extends CI_Controller {
             $this->session->set_flashdata('error', validation_errors('<p>', '</p>'));
             $this->load->view('tarefa');        
         }
-    }
     
+    }  
+    public function validaDate($data){
+            $data_atual = date('Y-m-d');
+
+            if($data_atual < $data) 
+                return true;
+            
+            $this->form_validation->set_message('validaDate', ' A {field} deve ser maior que a data atual!');
+            return false;
+            
+    }    
+
 
     private function Validate($operation = 'create')
     {       
@@ -60,13 +71,14 @@ class Tarefa extends CI_Controller {
                     $rules['name'] = array('trim', 'required');
                     $rules['description'] = array('trim', 'required');
                     $rules['comments'] = array('trim', 'required');
+                    $rules['endTime'] = array('trim', 'required','callback_validaDate');
                     break;
             }
 
             $this->form_validation->set_rules('name', 'Título', $rules['name']);
             $this->form_validation->set_rules('description', 'Descrição', $rules['description']);
             $this->form_validation->set_rules('comments', 'Observações', $rules['comments']);
-            
+            $this->form_validation->set_rules('endTime','Data de disponibilidade',$rules['endTime']);
             return $this->form_validation->run();
         }
 
