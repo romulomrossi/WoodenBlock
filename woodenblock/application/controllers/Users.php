@@ -120,7 +120,8 @@ class Users extends CI_Controller
             }
             else
             {
-				$this->session->set_flashdata('success', 'Contato inserido com sucesso.');
+                $this->session->set_flashdata('registerSuccess', 'Usuário 
+                    criado com sucesso. Efetue login para acessar seu painel.');
 				// Redireciona o usuário para a home
 				redirect();
 			}

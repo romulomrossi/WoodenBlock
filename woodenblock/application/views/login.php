@@ -10,6 +10,13 @@
       </div>
 		<?php endif; ?>
 
+    <?php if($this->session->flashdata('registerSuccess')): ?>
+      <div class="col m8 s12 offset-m2">
+				<p><?php echo $this->session->flashdata('registerSuccess'); ?></p>
+      </div>
+		<?php endif; ?>
+
+
     <form class="col s12 col m8 offset-m2" method="post" action="<?=base_url('index.php/users/login')?>">
       <div class="row">
         <div class="input-field col s12 col m12">
