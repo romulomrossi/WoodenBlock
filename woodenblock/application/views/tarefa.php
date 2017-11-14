@@ -43,20 +43,9 @@
             <input placeholder="WEB/DESIGN/JAVA" value="<?=set_value('area')?>" type="text" name="area">
             <label>Área</label>
           </div>
-        </div>
-        <div class="row">
           <div class="input-field col s12 col m6">
             <input placeholder="R$ 1200,00" type="text" name="value" value="<?=set_value('value')?>">
             <label>Valor:</label>
-          </div>
-          <div class="col s12 col m6">
-              
-                <input type="radio" id="v1" />
-                  <label for="v1">Definir Valor</label>
-            
-                  <input type="radio" id="v2" />
-                  <label for="v2">Aberto para publicações</label>
-        
           </div>
         </div>
         <div class="row">
