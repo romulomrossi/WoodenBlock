@@ -17,7 +17,8 @@ class Users extends CI_Controller
     public function validaCPF($cpf) {
      
         // Verifica se um número foi informado
-        if(empty($cpf)) {
+        if(empty($cpf) || !is_numeric($cpf)) {
+            $this->form_validation->set_message('validaCPF', 'O campo {field} é inválido');
             return false;
         }
      
