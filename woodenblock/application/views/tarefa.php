@@ -6,8 +6,12 @@
   </div>
   <div class="row">
       <div class="col m8 s12 offset-m2">
-        <?php if($this->session->flashdata('error')): ?>
-        <?php endif; ?>
+      <?php if($this->session->flashdata('error')): ?>
+      <div class="col m8 s12 offset-m2">
+				<p><?php echo $this->session->flashdata('error'); ?></p>
+      </div>
+		<?php endif; ?>
+
       </div>
       <form class="col s12 col m8 offset-m2" method="post" action=<?=base_url('index.php/users/tarefa/create')?> >
         <div class="row">
@@ -47,10 +51,10 @@
           </div>
           <div class="col s12 col m6">
               
-                <input name="group1" type="radio" id="v1" />
+                <input type="radio" id="v1" />
                   <label for="v1">Definir Valor</label>
             
-                  <input name="group1" type="radio" id="v2" />
+                  <input type="radio" id="v2" />
                   <label for="v2">Aberto para publicações</label>
         
           </div>
